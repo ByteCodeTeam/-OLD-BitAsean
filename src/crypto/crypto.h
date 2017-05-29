@@ -208,6 +208,10 @@ struct EllipticCurveScalar {
     crypto_ops::generate_key_image(pub, sec, image);
   }
 
+  inline KeyImage scalarmultKey(const KeyImage & P, const KeyImage & a) {
+    return crypto_ops::scalarmultKey(P, a);
+  }
+  
   inline void hash_data_to_ec(const uint8_t* data, std::size_t len, PublicKey& key) {
     crypto_ops::hash_data_to_ec(data, len, key);
   }
