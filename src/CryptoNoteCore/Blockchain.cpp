@@ -371,11 +371,6 @@ bool Blockchain::haveSpentKeyImages(const CryptoNote::Transaction& tx) {
 * \pre m_blockchain_lock is locked
 */
 bool Blockchain::checkTransactionSize(size_t blobSize) {
-  if (blobSize > getCurrentCumulativeBlocksizeLimit() - m_currency.minerTxBlobReservedSize()) {
-    logger(ERROR) << "transaction is too big " << blobSize << ", maximum allowed size is " <<
-      (getCurrentCumulativeBlocksizeLimit() - m_currency.minerTxBlobReservedSize());
-    return false;
-  }
 
   return true;
 }
@@ -853,16 +848,7 @@ bool Blockchain::validate_miner_transaction(const Block& b, uint32_t height, siz
     logger(INFO, BRIGHT_WHITE) << "block size " << cumulativeBlockSize << " is bigger than allowed for this blockchain";
     return false;
   }
-
-  if (minerReward > reward) {
-    logger(ERROR, BRIGHT_RED) << "Coinbase transaction spend too much money: " << m_currency.formatAmount(minerReward) <<
-      ", block reward is " << m_currency.formatAmount(reward);
-    return false;
-  } else if (minerReward < reward) {
-    logger(ERROR, BRIGHT_RED) << "Coinbase transaction doesn't use full amount of block reward: spent " <<
-      m_currency.formatAmount(minerReward) << ", block reward is " << m_currency.formatAmount(reward);
-    return false;
-  }
+ 
 
   return true;
 }

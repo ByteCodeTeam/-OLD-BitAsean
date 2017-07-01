@@ -52,7 +52,7 @@ void constructTx(const AccountKeys keys, const std::vector<TransactionSourceEntr
   bool r = constructTransaction(keys, sources, splittedDests, extraVec, tx, unlockTimestamp, nullLog);
 
   throwIf(!r, error::INTERNAL_WALLET_ERROR);
-  throwIf(getObjectBinarySize(tx) >= sizeLimit, error::TRANSACTION_SIZE_TOO_BIG);
+  
 }
 
 std::shared_ptr<WalletLegacyEvent> makeCompleteEvent(WalletUserTransactionsCache& transactionCache, size_t transactionId, std::error_code ec) {
